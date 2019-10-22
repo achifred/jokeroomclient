@@ -2,8 +2,7 @@ jokeroom client built with reactJs, material-ui
 This is the frontend of the jokeroom application
 
 1. clone the this project using
-   git clone https://github.com/achifred/eventbooker.git
-
+   git clone https://github.com/achifred/jokeroomclient.git
 2. cd into the root directory of the cloned project
 
 3. run npm install to install all the dependencies
