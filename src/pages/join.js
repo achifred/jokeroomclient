@@ -10,7 +10,7 @@ import {
   Select,
   InputLabel
 } from '@material-ui/core';
-import backgroundpic from '../static/bg.jpg';
+
 import { colors } from '../constant/colors';
 import { Data } from '../constant/data';
 class Join extends Component {
