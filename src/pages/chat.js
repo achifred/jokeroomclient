@@ -13,7 +13,11 @@ const Chat = ({ location }, props) => {
   const [room, setRoom] = useState('');
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const url = 'localhost:5000';
+  const url =
+    process.env.NODE_ENV === 'production'
+      ? process.env.REACT_APP_DOMAIN
+      : 'localhost:5000';
+
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
     //const { name, room } = localStorage.getItem('token');
