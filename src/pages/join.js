@@ -136,18 +136,6 @@ class Join extends Component {
 }
 
 const styles = {
-  Container: {
-    margin: 0,
-    padding: 0,
-    width: '100%',
-    height: '100vh',
-    backgroundImage: `linear-gradient(0deg,rgba(0,0,0, 0.3),rgba(0,0,0,1)),url(${backgroundpic})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundAttachment: 'fixed'
-  },
-
   innerContainer: {
     justifyContent: 'center'
 
