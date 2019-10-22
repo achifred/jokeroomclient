@@ -6,8 +6,8 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Join} />
-        <Route path="/chat" exact component={Chat} />
+        <Route path="/" exact render={props => <Join {...props} />} />
+        <Route path="/chat" exact render={props => <Chat {...props} />} />
       </Switch>
     </BrowserRouter>
   );

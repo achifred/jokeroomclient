@@ -6,8 +6,9 @@ import Navbar from '../component/navbar';
 import Input from '../component/input';
 import Messages from '../component/messages';
 import ErrorBoundary from '../component/errorBoundary';
+import { Redirect } from 'react-router-dom';
 let socket;
-const Chat = ({ location }) => {
+const Chat = ({ location }, props) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [messages, setMessages] = useState([]);
@@ -15,6 +16,8 @@ const Chat = ({ location }) => {
   const url = 'localhost:5000';
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
+    //const { name, room } = localStorage.getItem('token');
+    console.log(name);
     socket = io(url);
     setName(name);
     setRoom(room);
@@ -38,14 +41,24 @@ const Chat = ({ location }) => {
     }
   };
 
-  //console.log(message, messages);
+  function logout(props) {
+    localStorage.getItem('token');
+
+    localStorage.clear();
+    window.location.replace('/');
+  }
+
   return (
     <ErrorBoundary>
       <Grid container>
-        <Navbar room={room} />
+        <Navbar logout={logout} room={room} />
         <Grid container style={{ justifyContent: 'center' }}>
           <Grid container style={{ justifyContent: 'center' }}>
-            <Messages messages={messages} name={name} />
+            {localStorage.getItem('token') ? (
+              <Messages messages={messages} name={name} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Grid>
           <Grid container style={{ justifyContent: 'center' }}>
             <Input

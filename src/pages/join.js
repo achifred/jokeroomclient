@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
 import ErrorBoundary from '../component/errorBoundary';
+
 import {
   Grid,
   Typography,
   TextField,
   Button,
   Select,
-  InputLabel,
-  FormControl
+  InputLabel
 } from '@material-ui/core';
+import backgroundpic from '../static/bg.jpg';
+import { colors } from '../constant/colors';
+import { Data } from '../constant/data';
 class Join extends Component {
   constructor(props) {
     super(props);
@@ -23,91 +26,138 @@ class Join extends Component {
       [event.target.name]: event.target.value
     });
   };
-
-  handleEmptyInput = event => {
-    if (!this.state.name || !this.state.room) {
-      return event.preventDefault();
-    } else {
-      return null;
+  login = event => {
+    event.preventDefault();
+    const isvalid = this.validate();
+    if (isvalid) {
+      localStorage.setItem('token', {
+        name: this.state.name,
+        room: this.state.room
+      });
+      this.props.history.push(
+        `/chat?name=${this.state.name}&room=${this.state.room}`
+      );
+      console.log('okay');
     }
   };
+  validate = () => {
+    if (!this.state.name || !this.state.room) {
+      return false;
+    }
+    return true;
+  };
   render() {
-    const { name, room } = this.state;
     return (
-      <ErrorBoundary>
-        <div>
+      <div>
+        <ErrorBoundary>
           <Grid container style={styles.innerContainer}>
-            <Typography style={{ textAlign: 'center', marginTop: 15 }}>
-              The developer joke room
-            </Typography>
-
-            <Grid
-              container
-              style={{
-                justifyContent: 'center',
-                marginTop: 15,
-                marginBottom: 15
-              }}
-            >
-              <TextField
-                placeholder="name"
-                variant="outlined"
-                type="text"
-                name="name"
-                onChange={this.onchange}
-              />
-            </Grid>
-            <Grid
-              container
-              style={{
-                justifyContent: 'center',
-                marginTop: 15,
-                marginBottom: 15
-              }}
-            >
-              <FormControl>
-                <InputLabel htmlFor="age-native-required">
-                  select a joke room
+            <form style={{ marginTop: 150 }} onSubmit={this.login}>
+              <Typography style={styles.introText}>
+                The developer joke room
+              </Typography>
+              <Grid
+                container
+                style={{
+                  justifyContent: 'center',
+                  marginTop: 15,
+                  marginBottom: 15
+                }}
+              >
+                <TextField
+                  placeholder="enter a name"
+                  variant="outlined"
+                  color="primary"
+                  type="text"
+                  name="name"
+                  fullWidth
+                  onChange={this.onchange}
+                />
+              </Grid>
+              <Grid
+                container
+                style={{
+                  justifyContent: 'center',
+                  marginTop: 15,
+                  marginBottom: 15
+                }}
+              >
+                <InputLabel
+                  style={{ color: colors.orange }}
+                  htmlFor="age-native-required"
+                >
+                  select a room to join
                 </InputLabel>
-                <Select native name="room" onChange={this.onchange} required>
+              </Grid>
+              <Grid
+                container
+                style={{
+                  justifyContent: 'center',
+                  marginTop: 15,
+                  marginBottom: 15
+                }}
+              >
+                <Select
+                  native
+                  variant="outlined"
+                  name="room"
+                  fullWidth
+                  onChange={this.onchange}
+                  required
+                >
                   <option value="" />
 
-                  <option value="Developer joke room">
-                    Developer's Joke Room
-                  </option>
-                  <option value="Designer joke room">
-                    {' '}
-                    Designer's Joke Room
-                  </option>
-                  <option value=" joke room">Python Joke Room</option>
-                  <option value=" joke room">Javascript Joke Room</option>
+                  {Data.map(item => (
+                    <option key={item.room} value={item.room}>
+                      {item.room}
+                    </option>
+                  ))}
                 </Select>
-              </FormControl>
-            </Grid>
-
-            <div>
-              <Link
-                onClick={this.handleEmptyInput}
-                to={`/chat?name=${name}&room=${room}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button variant="outlined" type="submit">
-                  Join In
-                </Button>
-              </Link>
-            </div>
+                <Grid
+                  container
+                  style={{ justifyContent: 'center', marginTop: 15 }}
+                >
+                  <Button
+                    style={{
+                      textAlign: 'center'
+                    }}
+                    variant="outlined"
+                    type="submit"
+                  >
+                    Join In
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
           </Grid>
-        </div>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </div>
     );
   }
 }
 
 const styles = {
-  innerContainer: {
-    justifyContent: 'center',
+  Container: {
+    margin: 0,
+    padding: 0,
+    width: '100%',
+    height: '100vh',
+    backgroundImage: `linear-gradient(0deg,rgba(0,0,0, 0.3),rgba(0,0,0,1)),url(${backgroundpic})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed'
+  },
 
-    marginTop: 150
+  innerContainer: {
+    justifyContent: 'center'
+
+    //marginTop: 150
+  },
+  introText: {
+    textAlign: 'center',
+    fontSize: 24,
+    marginTop: 15,
+    color: colors.orange
   }
 };
 export default Join;

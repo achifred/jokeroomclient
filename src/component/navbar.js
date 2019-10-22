@@ -9,9 +9,11 @@ import {
   Button
 } from '@material-ui/core';
 import { IoMdPerson } from 'react-icons/io';
+import { Redirect } from 'react-router-dom';
 
-function Navbar({ room }) {
+function Navbar({ room, logout }) {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -27,7 +29,9 @@ function Navbar({ room }) {
           <Typography variant="h6" className={classes.title}>
             {room}
           </Typography>
-          <Button color="inherit">close</Button>
+          <Button onClick={logout} color="inherit">
+            close
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
