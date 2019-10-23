@@ -20,8 +20,7 @@ const Chat = ({ location }, props) => {
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-    //const { name, room } = localStorage.getItem('token');
-    console.log(name);
+
     socket = io(url);
     setName(name);
     setRoom(room);
@@ -45,7 +44,7 @@ const Chat = ({ location }, props) => {
     }
   };
 
-  function logout(props) {
+  function logout() {
     localStorage.getItem('token');
 
     localStorage.clear();

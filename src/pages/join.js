@@ -37,7 +37,6 @@ class Join extends Component {
       this.props.history.push(
         `/chat?name=${this.state.name}&room=${this.state.room}`
       );
-      console.log('okay');
     }
   };
   validate = () => {
