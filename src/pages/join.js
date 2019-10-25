@@ -52,7 +52,7 @@ class Join extends Component {
           <Grid container style={styles.innerContainer}>
             <form style={{ marginTop: 150 }} onSubmit={this.login}>
               <Typography style={styles.introText}>
-                The developer joke room
+                The developer's joke room
               </Typography>
               <Grid
                 container
